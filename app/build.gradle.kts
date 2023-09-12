@@ -1,6 +1,3 @@
-import java.io.FileInputStream
-import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
-import org.jetbrains.kotlin.konan.properties.Properties
 import org.jetbrains.kotlin.konan.properties.loadProperties
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
@@ -12,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.harmittaa.publictransitstops"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.harmittaa.publictransitstops"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -85,6 +82,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.apollo.runtime)
     implementation(libs.koin.android)
+    implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
