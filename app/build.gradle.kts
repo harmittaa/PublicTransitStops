@@ -1,3 +1,8 @@
+import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import org.jetbrains.kotlin.konan.properties.Properties
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
@@ -20,6 +25,16 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Fetches the digitransit API key from apikeys.properties file,
+        // located in the project root
+        val projectProperties = loadProperties("endpoint.properties")
+        val digitransitKey = projectProperties.getProperty("DIGITRANSIT_KEY")
+        val digitransitUrl = projectProperties.getProperty("DIGITRANSIT_URL")
+
+        buildConfigField("String", "DIGITRANSIT_KEY", digitransitKey)
+        buildConfigField("String", "DIGITRANSIT_URL", digitransitUrl
+        )
     }
 
     buildTypes {
@@ -40,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -68,6 +84,8 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.apollo.runtime)
+    implementation(libs.koin.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
