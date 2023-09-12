@@ -21,10 +21,13 @@ jobs:
           distribution: 'temurin'
 
       - name: Create endpoint.properties file
+        env:
+          DT_KEY: ${{ secrets.DIGITRANSIT_KEY }}
+          DT_URL: ${{ secrets.DIGITRANSIT_URL }}
         run: |
           touch endpoint.properties
-          echo DIGITRANSIT_KEY="key_would_be_fetched_from_secrets" >> endpoint.properties
-          echo DIGITRANSIT_URL="URL_would_be_fetched_from_secrets" >> endpoint.properties
+          echo DIGITRANSIT_KEY='"$DT_KEY"' >> endpoint.properties
+          echo DIGITRANSIT_URL='"$DT_URL"' >> endpoint.properties
         shell: bash
 
       - name: Run assembleDebug
