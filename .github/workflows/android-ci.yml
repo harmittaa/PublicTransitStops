@@ -20,5 +20,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Create endpoint.properties file
+        run: |
+          touch endpoint.properties
+          echo DIGITRANSIT_KEY="key_would_be_fetched_from_secrets" >> endpoint.properties
+          echo DIGITRANSIT_URL="URL_would_be_fetched_from_secrets" >> endpoint.properties
+        shell: bash
+
       - name: Run assembleDebug
         run: ./gradlew app:assembleDebug
