@@ -24,7 +24,8 @@ import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 @Composable
 fun NearestStopsView(data: List<Stop>) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.padding(horizontal = 12.dp)
     ) {
         item {
             Text(
@@ -39,7 +40,7 @@ fun NearestStopsView(data: List<Stop>) {
             NearestStopListItem(
                 name = stop.name,
                 distance = stop.distance,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 16.dp)
+                modifier = Modifier.padding(vertical = 16.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Divider()
@@ -63,7 +64,7 @@ fun NearestStopListItem(
         )
     ) {
         Text(
-            text = "Stop: $name",
+            text = name,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(0.7f)
@@ -71,7 +72,8 @@ fun NearestStopListItem(
         Text(
             text = "Distance: $distance",
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(0.3f)
         )
     }
 }
@@ -84,7 +86,7 @@ fun PreviewNearestStopsView() {
         repeat(5) {
             mockData.add(
                 Stop(
-                    name = "exampleexampleexampleexampleexampleexample",
+                    name = "This here would be a very, very, very, very, very long name",
                     distance = it * 100
                 )
             )
