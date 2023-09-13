@@ -2,7 +2,8 @@ package com.harmittaa.publictransitstops.ui.screen.nearestStops
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.harmittaa.publictransitstops.StopsByRadiusQuery
+import com.harmittaa.publictransitstops.extensions.toLocalDataOrNull
+import com.harmittaa.publictransitstops.model.Stop
 import com.harmittaa.publictransitstops.repository.LocationRepository
 import com.harmittaa.publictransitstops.repository.NetworkRequestState
 import com.harmittaa.publictransitstops.repository.StopsRepository
@@ -40,7 +41,7 @@ class NearestStopsScreenViewModel(
 
                             is NetworkRequestState.SUCCESS -> NearestStopsState(
                                 currentState = UIState.Success,
-                                data = networkState.data
+                                data = networkState.data.mapNotNull { it.toLocalDataOrNull() }
                             )
                         }
                     }
@@ -50,7 +51,7 @@ class NearestStopsScreenViewModel(
 
     data class NearestStopsState(
         val currentState: UIState = UIState.Loading,
-        val data: List<StopsByRadiusQuery.Node> = emptyList()
+        val data: List<Stop> = emptyList()
     ) {
         interface UIState {
             object Success : UIState
