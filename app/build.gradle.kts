@@ -81,7 +81,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.apollo.runtime)
-    implementation(libs.koin.android)
+    implementation(libs.koin.android.compose)
     implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)

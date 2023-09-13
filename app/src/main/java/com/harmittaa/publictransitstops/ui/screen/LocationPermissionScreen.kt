@@ -1,7 +1,8 @@
 package com.harmittaa.publictransitstops.ui.screen
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.pm.PackageManager
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -12,19 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import android.content.Context
+
 
 @Composable
 fun LocationPermissionScreen(
-    navigate: () -> Unit
+    navigate: () -> Unit,
 ) {
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
             navigate()
-
         } else {
-            Log.d("ExampleScreen", "PERMISSION DENIED")
+            println("PERMISSION DENIED")
         }
     }
     val context = LocalContext.current
@@ -38,24 +40,22 @@ fun LocationPermissionScreen(
         Button(
             onClick = {
                 when (PackageManager.PERMISSION_GRANTED) {
-                    ContextCompat.checkSelfPermission(
-                        context,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) or ContextCompat.checkSelfPermission(
-                        context,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    -> {
-                        Log.d("ExampleScreen", "Code requires permission")
-                    }
-
-                    else -> {
-                        launcher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    }
+                    context.checkIfAppHasLocationPermission() -> println("Code requires permission")
+                    else -> launcher.launch(ACCESS_FINE_LOCATION)
                 }
             }
         ) {
             Text(text = "Check and Request Permission")
         }
     }
+}
+
+fun Context.checkIfAppHasLocationPermission(): Int {
+    return ContextCompat.checkSelfPermission(
+        this,
+        ACCESS_FINE_LOCATION
+    ) or ContextCompat.checkSelfPermission(
+        this,
+        ACCESS_COARSE_LOCATION
+    )
 }

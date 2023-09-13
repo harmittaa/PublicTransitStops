@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
     private val apolloClient: ApolloClient by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         /*MainScope().launch {
             val response =
                 apolloClient.query(StopsByRadiusQuery(lat = 60.199, lon = 24.938, radius = 200))

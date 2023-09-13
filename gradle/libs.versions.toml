@@ -31,7 +31,7 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 
 apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime", version.ref = "apollo" }
-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"}
+koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin"}
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

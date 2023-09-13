@@ -15,7 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.harmittaa.publictransitstops.ui.screen.LocationPermissionScreen
-import com.harmittaa.publictransitstops.ui.screen.NearestStopsScreen
+import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreen
 import com.harmittaa.publictransitstops.ui.screen.Screen
 import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 
