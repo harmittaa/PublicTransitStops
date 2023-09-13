@@ -24,7 +24,7 @@ fun ErrorView(error: Error) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 12.dp, vertical = 16.dp)
     ) {
         Text(
             text = "There has been an error with the following component:",

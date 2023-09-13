@@ -21,7 +21,7 @@ fun LoadingView() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 12.dp, vertical = 16.dp)
     ) {
         Text(
             text = "Loading data... please hold on",
