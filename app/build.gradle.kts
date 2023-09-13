@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.konan.properties.loadProperties
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -23,7 +24,7 @@ android {
             useSupportLibrary = true
         }
 
-        // Fetches the digitransit API key from apikeys.properties file,
+        // Fetches the digitransit API key from endpoint.properties file,
         // located in the project root
         val projectProperties = loadProperties("endpoint.properties")
         val digitransitKey = projectProperties.getProperty("DIGITRANSIT_KEY")
@@ -68,6 +69,11 @@ android {
             packageName.set("com.harmittaa.publictransitstops")
         }
     }
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions.freeCompilerArgs += listOf(
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        )
+    }
 }
 
 dependencies {
@@ -81,8 +87,10 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.apollo.runtime)
+    implementation(libs.apollo.coroutines.support)
     implementation(libs.koin.android.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

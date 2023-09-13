@@ -19,16 +19,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-    private val apolloClient: ApolloClient by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*MainScope().launch {
-            val response =
-                apolloClient.query(StopsByRadiusQuery(lat = 60.199, lon = 24.938, radius = 200))
-                    .execute()
-            println("Name = ${response.data?.stopsByRadius?.edges?.first()?.node?.distance}")
-
-         */
         setContent {
             PublicTransitStopsApp()
         }

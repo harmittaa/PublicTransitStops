@@ -40,7 +40,8 @@ fun LocationPermissionScreen(
         Button(
             onClick = {
                 when (PackageManager.PERMISSION_GRANTED) {
-                    context.checkIfAppHasLocationPermission() -> println("Code requires permission")
+                    context.checkIfAppHasLocationPermission() ->
+                        println("App has been granted permissions")
                     else -> launcher.launch(ACCESS_FINE_LOCATION)
                 }
             }
