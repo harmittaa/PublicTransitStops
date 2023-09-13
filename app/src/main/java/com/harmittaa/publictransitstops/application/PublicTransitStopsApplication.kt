@@ -1,4 +1,4 @@
-package com.harmittaa.publictransitstops
+package com.harmittaa.publictransitstops.application
 
 import android.app.Application
 import com.harmittaa.publictransitstops.di.appModule
