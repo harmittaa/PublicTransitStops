@@ -19,5 +19,4 @@ class AuthInterceptor : Interceptor {
             .build()
         return chain.proceed(request)
     }
-
 }

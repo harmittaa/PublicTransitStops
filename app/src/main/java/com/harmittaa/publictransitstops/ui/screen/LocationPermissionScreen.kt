@@ -2,6 +2,7 @@ package com.harmittaa.publictransitstops.ui.screen
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,12 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
-import android.content.Context
-
 
 @Composable
 fun LocationPermissionScreen(
-    navigate: () -> Unit,
+    navigate: () -> Unit
 ) {
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -35,7 +34,6 @@ fun LocationPermissionScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Text(text = "To use this application, you will need to provide your location.")
         Button(
             onClick = {

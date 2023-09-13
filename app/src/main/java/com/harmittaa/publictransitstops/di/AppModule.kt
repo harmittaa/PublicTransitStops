@@ -15,7 +15,7 @@ val appModule = module {
     viewModel {
         NearestStopsScreenViewModel(
             locationRepository = get(),
-            stopsRepository = get(),
+            stopsRepository = get()
         )
     }
     factory { getLocationProvider(context = get()) }
