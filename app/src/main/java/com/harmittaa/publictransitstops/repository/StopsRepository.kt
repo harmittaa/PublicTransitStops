@@ -5,18 +5,21 @@ import com.apollographql.apollo3.exception.ApolloException
 import com.harmittaa.publictransitstops.StopsByRadiusQuery
 import kotlinx.coroutines.flow.flow
 
-sealed interface NetworkRequestState {
-    class SUCCESS(val data: List<StopsByRadiusQuery.Node>) : NetworkRequestState
-    class NO_LOCATIONS_NEARBY() : NetworkRequestState
-    object ERROR : NetworkRequestState
+// simple structure to represent network result states.
+// this would be more generic in a scenario where there's multiple different data sources
+sealed interface NetworkResult {
+    class Success(val data: List<StopsByRadiusQuery.Node>) : NetworkResult
+    object NoLocationsNearby : NetworkResult
+    object Error : NetworkResult
 }
+
 class StopsRepository(
     private val api: ApolloClient
 ) {
     private val searchRadius = 500
 
     fun getNearbyStops(lat: Double, lon: Double, radius: Int = searchRadius) =
-        flow<NetworkRequestState> {
+        flow {
             val query = api.query(
                 StopsByRadiusQuery(
                     lat = lat,
@@ -26,17 +29,18 @@ class StopsRepository(
             )
 
             try {
-                val networkResult: List<StopsByRadiusQuery.Edge> =
-                    query.execute().data?.stopsByRadius?.edges?.filterNotNull()?.map { it }
+                val networkResult =
+                    query.execute().data?.stopsByRadius?.edges?.mapNotNull { it?.node }
                         ?: emptyList()
+
                 if (networkResult.isEmpty()) {
-                    emit(NetworkRequestState.NO_LOCATIONS_NEARBY())
+                    emit(NetworkResult.NoLocationsNearby)
                 } else {
-                    emit(NetworkRequestState.SUCCESS(data = networkResult.mapNotNull { it.node }))
+                    emit(NetworkResult.Success(data = networkResult))
                 }
             } catch (e: ApolloException) {
                 println("Exception on fetching stops: $e")
-                emit(NetworkRequestState.ERROR)
+                emit(NetworkResult.Error)
             }
         }
 }

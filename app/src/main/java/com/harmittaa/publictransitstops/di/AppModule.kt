@@ -10,15 +10,20 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+    // networking
     factory { AuthInterceptor() }
     single { getDigitransitClient(authInterceptor = get()) }
+    factory { StopsRepository(api = get()) }
+
+    // location
+    factory { getLocationProvider(context = get()) }
+    factory { LocationRepository(locationClient = get()) }
+
+    // presentation
     viewModel {
         NearestStopsScreenViewModel(
             locationRepository = get(),
             stopsRepository = get()
         )
     }
-    factory { getLocationProvider(context = get()) }
-    factory { LocationRepository(locationClient = get()) }
-    factory { StopsRepository(api = get()) }
 }

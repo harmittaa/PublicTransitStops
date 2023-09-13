@@ -67,13 +67,12 @@ fun NearestStopListItem(
             text = name,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(0.7f)
+            modifier = Modifier.fillMaxWidth(.8f)
         )
         Text(
-            text = "Distance: $distance",
+            text = "${distance}m",
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(0.3f)
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

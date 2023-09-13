@@ -5,9 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.harmittaa.publictransitstops.extensions.toLocalDataOrNull
 import com.harmittaa.publictransitstops.model.Stop
 import com.harmittaa.publictransitstops.repository.LocationRepository
-import com.harmittaa.publictransitstops.repository.NetworkRequestState
+import com.harmittaa.publictransitstops.repository.NetworkResult
 import com.harmittaa.publictransitstops.repository.StopsRepository
 import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreenViewModel.NearestStopsState.UIState
+import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreenViewModel.NearestStopsState.UIState.Error
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ class NearestStopsScreenViewModel(
             locationRepository.getLocation()
                 .collect { location ->
                     if (location == null) {
-                        _uiState.value = NearestStopsState(currentState = UIState.Error.Location)
+                        _uiState.value = NearestStopsState(currentState = Error.Location)
                         return@collect
                     }
                     stopsRepository.getNearbyStops(
@@ -34,12 +35,12 @@ class NearestStopsScreenViewModel(
                         lon = location.longitude
                     ).collect { networkState ->
                         _uiState.value = when (networkState) {
-                            is NetworkRequestState.ERROR -> NearestStopsState(currentState = UIState.Error.Network)
-                            is NetworkRequestState.NO_LOCATIONS_NEARBY -> NearestStopsState(
-                                currentState = UIState.Error.NoStopsNearby
+                            is NetworkResult.Error -> NearestStopsState(currentState = Error.Network)
+                            is NetworkResult.NoLocationsNearby -> NearestStopsState(
+                                currentState = Error.NoStopsNearby
                             )
 
-                            is NetworkRequestState.SUCCESS -> NearestStopsState(
+                            is NetworkResult.Success -> NearestStopsState(
                                 currentState = UIState.Success,
                                 data = networkState.data.mapNotNull { it.toLocalDataOrNull() }
                             )
