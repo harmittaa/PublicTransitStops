@@ -15,6 +15,7 @@ DIGITRANSIT_URL = "Digitransit URL matching"
 
 ## TODO
 This is hardly finalized code, some concrete things to keep in mind:
-- Data types from network layer are leaked all the way to UI. Fix: create separate UI entities, so that UI is not coupled with the network layer
+- Data types from network layer are leaked all the way to presentation layer. Fix: create separate presentation entities, so that presentation is not coupled with the network layer
 - ViewModel data management structure is handled in an imperative manner, which will not be scalable to more inputs (without quite extreme nesting). Fix: move on to reactive style, extract location and stop data to their own variables and combine those
 - Location data is only fetched once (latest know location), making it so that if it's not available the app will remain in Error state. Fix: fetch latest location, if not available then request for new location updates
+-
