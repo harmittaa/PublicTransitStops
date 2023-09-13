@@ -6,7 +6,7 @@ Filename: `endpoint.properties`
 Content: 
 ```
 DIGITRANSIT_KEY = "Your digitransit API key here"
-DIGITRANSIT_URL = "Digitransit URL matching"
+DIGITRANSIT_URL = "Digitransit URL"
 ```
 
 ## Application requirements
