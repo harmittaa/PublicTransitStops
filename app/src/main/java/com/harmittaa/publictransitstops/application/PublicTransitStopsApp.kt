@@ -15,8 +15,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.harmittaa.publictransitstops.ui.screen.LocationPermissionScreen
-import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreen
 import com.harmittaa.publictransitstops.ui.screen.Screen
+import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreen
 import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 
 @Composable
@@ -26,7 +26,6 @@ fun PublicTransitStopsApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-
             val context = LocalContext.current
             // define start screen: show permission request screen if required
             // app is always restarted if permissions are later denied, hence this is always checked

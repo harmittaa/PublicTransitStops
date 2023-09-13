@@ -6,12 +6,12 @@ import com.harmittaa.publictransitstops.StopsByRadiusQuery
 import kotlinx.coroutines.flow.flow
 
 sealed interface NetworkRequestState {
-    class SUCCESS(val data: List<StopsByRadiusQuery.Node>): NetworkRequestState
-    class NO_LOCATIONS_NEARBY(): NetworkRequestState
+    class SUCCESS(val data: List<StopsByRadiusQuery.Node>) : NetworkRequestState
+    class NO_LOCATIONS_NEARBY() : NetworkRequestState
     object ERROR : NetworkRequestState
 }
 class StopsRepository(
-    private val api: ApolloClient,
+    private val api: ApolloClient
 ) {
     private val searchRadius = 500
 
@@ -21,7 +21,7 @@ class StopsRepository(
                 StopsByRadiusQuery(
                     lat = lat,
                     lon = lon,
-                    radius = radius,
+                    radius = radius
                 )
             )
 
@@ -38,6 +38,5 @@ class StopsRepository(
                 println("Exception on fetching stops: $e")
                 emit(NetworkRequestState.ERROR)
             }
-
         }
 }

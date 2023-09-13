@@ -30,5 +30,8 @@ jobs:
           echo DIGITRANSIT_URL='"$DT_URL"' >> endpoint.properties
         shell: bash
 
+      - name: Run linter check
+        run: ./gradlew app:ktlintCheck
+
       - name: Run assembleDebug
         run: ./gradlew app:assembleDebug

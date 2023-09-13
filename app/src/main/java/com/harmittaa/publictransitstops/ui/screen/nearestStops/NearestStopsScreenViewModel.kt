@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class NearestStopsScreenViewModel(
     locationRepository: LocationRepository,
-    private val stopsRepository: StopsRepository,
+    private val stopsRepository: StopsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NearestStopsState())
@@ -44,14 +44,13 @@ class NearestStopsScreenViewModel(
                             )
                         }
                     }
-
                 }
         }
     }
 
     data class NearestStopsState(
         val currentState: UIState = UIState.Loading,
-        val data: List<StopsByRadiusQuery.Node> = emptyList(),
+        val data: List<StopsByRadiusQuery.Node> = emptyList()
     ) {
         interface UIState {
             object Success : UIState
@@ -60,7 +59,7 @@ class NearestStopsScreenViewModel(
             enum class Error : UIState {
                 Network,
                 Location,
-                NoStopsNearby,
+                NoStopsNearby
             }
         }
     }

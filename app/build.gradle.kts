@@ -1,11 +1,12 @@
-import org.jetbrains.kotlin.konan.properties.loadProperties
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.konan.properties.loadProperties
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.apollographql.apollo3)
+    alias(libs.plugins.org.jlleitschuh.gradle.ktlint)
 }
 
 android {
@@ -31,7 +32,10 @@ android {
         val digitransitUrl = projectProperties.getProperty("DIGITRANSIT_URL")
 
         buildConfigField("String", "DIGITRANSIT_KEY", digitransitKey)
-        buildConfigField("String", "DIGITRANSIT_URL", digitransitUrl
+        buildConfigField(
+            "String",
+            "DIGITRANSIT_URL",
+            digitransitUrl
         )
     }
 
