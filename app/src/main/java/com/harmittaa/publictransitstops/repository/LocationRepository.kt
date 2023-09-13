@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.callbackFlow
 class LocationRepository(
     private val locationClient: FusedLocationProviderClient
 ) {
-
     // permission is already checked on app launch
     // denying permission later forces app restart, hence this won't be reached without permission
+    // however, if app has permission, but there's no lastLocation, then null will be returned
     @SuppressLint("MissingPermission")
     fun getLocation(): Flow<Location?> = callbackFlow {
         locationClient.lastLocation

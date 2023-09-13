@@ -61,7 +61,7 @@ fun LocationPermissionScreen(
             }
         ) {
             Text(
-                text = "Check and Request Permission",
+                text = "Allow location permission",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
