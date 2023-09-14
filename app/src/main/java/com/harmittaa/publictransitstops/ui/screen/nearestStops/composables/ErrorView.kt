@@ -11,9 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.harmittaa.publictransitstops.R
 import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreenViewModel.NearestStopsState.UIState.Error
 import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 
@@ -27,7 +29,7 @@ fun ErrorView(error: Error) {
             .padding(horizontal = 12.dp, vertical = 16.dp)
     ) {
         Text(
-            text = "There has been an error with the following component:",
+            text = stringResource(R.string.error_view_generic_error_title),
             style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center
         )

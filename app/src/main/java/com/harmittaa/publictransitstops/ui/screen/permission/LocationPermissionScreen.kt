@@ -25,9 +25,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.harmittaa.publictransitstops.R
 import com.harmittaa.publictransitstops.extensions.checkIfAppHasLocationPermission
 import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 
@@ -41,7 +43,7 @@ fun LocationPermissionScreen(
         if (isGranted) {
             navigate()
         } else {
-            println("PERMISSION DENIED")
+            println("Permission denied")
         }
     }
 
@@ -84,7 +86,7 @@ fun LocationPermissionScreen(
                     .fillMaxHeight(0.7f)
             ) {
                 Text(
-                    text = "To use this application, you will need to provide your location.",
+                    text = stringResource(id = R.string.landing_title_provide_location),
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center
                 )
@@ -100,7 +102,7 @@ fun LocationPermissionScreen(
                     }
                 ) {
                     Text(
-                        text = "Allow location permission",
+                        text = stringResource(R.string.landing_allow_permission_button_label),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }

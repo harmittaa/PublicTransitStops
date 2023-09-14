@@ -29,9 +29,8 @@ The application requires location permissions in order to be able to fetch neare
 - Google Play Services (location)
 
 ## General notes on code quality
-- Code structure: code is structured loosely, not following any specific pattern to the point. Clean architecture, or similar patterns, would be recommended if this were to be developed further. Adding futher complexity to the existing structure can make it difficult to locate files.
+- Code structure: code is structured loosely, not following any specific pattern to the point. Clean architecture, or similar patterns, would be recommended if this were to be developed further. Adding further complexity to the existing structure can make it difficult to locate files.
 - Code is testable, but no tests have been written
-- Label strings, could be extracted appropriately to `strings.xml` files. At least if localisations are added
 - Data types from network layer are leaked all the way to presentation layer. To fix this, it would be recommended to create separate presentation entities, so that the presentation layer is not coupled with the network layer
 - ViewModel logic structure is handled in an imperative manner, which will not be scalable to more inputs (without quite extreme nesting). Refactoring to reactive programming approach by extract location and stop data to their own flows is a solution to this.
 - Location data is only fetched once (latest know location), making it so that if it's not available the app will remain in Error state. Fetching new location updates would improve this solution.

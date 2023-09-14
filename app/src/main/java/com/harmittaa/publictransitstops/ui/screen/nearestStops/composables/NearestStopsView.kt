@@ -14,10 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.harmittaa.publictransitstops.R
 import com.harmittaa.publictransitstops.model.Stop
 import com.harmittaa.publictransitstops.ui.theme.PublicTransitStopsTheme
 
@@ -29,7 +31,7 @@ fun NearestStopsView(data: List<Stop>) {
     ) {
         item {
             Text(
-                text = "Here are the closest ${data.size} stops based on your location",
+                text = stringResource(R.string.nearest_stops_title_closest_stops, data.size),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 12.dp)
