@@ -1,6 +1,7 @@
 package com.harmittaa.publictransitstops.ui.screen.nearestStops
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.harmittaa.publictransitstops.ui.screen.nearestStops.NearestStopsScreenViewModel.NearestStopsState.UIState.Error
@@ -15,7 +16,11 @@ import org.koin.androidx.compose.koinViewModel
 fun NearestStopsScreen(
     viewModel: NearestStopsScreenViewModel = koinViewModel()
 ) {
-    val state by viewModel.uiState.collectAsState()
+    LaunchedEffect(Unit) {
+        viewModel.onScreenStarted()
+    }
+
+    val state by viewModel.state.collectAsState()
     when (state.currentState) {
         is Error -> {
             ErrorView(error = state.currentState as Error)

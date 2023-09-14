@@ -11,6 +11,7 @@ sealed interface NetworkResult {
     class Success(val data: List<StopsByRadiusQuery.Node>) : NetworkResult
     object NoLocationsNearby : NetworkResult
     object Error : NetworkResult
+    object NoLocation : NetworkResult
 }
 
 class StopsRepository(
