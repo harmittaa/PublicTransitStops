@@ -33,5 +33,9 @@ jobs:
       - name: Run linter check
         run: ./gradlew app:ktlintCheck
 
+      # there is a race condition in the actual tests, making the tests flaky
+      #- name: Run unit tests
+      #  run: ./gradlew testDebugUnitTest
+
       - name: Run assembleDebug
         run: ./gradlew app:assembleDebug
