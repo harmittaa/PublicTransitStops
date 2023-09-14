@@ -60,8 +60,7 @@ fun LocationPermissionScreen(
                     .5F to MaterialTheme.colorScheme.background,
                     .9F to MaterialTheme.colorScheme.background,
                     startY = 1f,
-                    // makes sure that the gradient goes over the background
-                    // and the content of the screen does not overlap
+                    // makes sure content does not overlap with background
                     endY = columnHeightPx * 0.8f
                 )
             )
@@ -82,6 +81,7 @@ fun LocationPermissionScreen(
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
+                    // aligns the content slightly down from the middle
                     .fillMaxHeight(0.7f)
             ) {
                 Text(
