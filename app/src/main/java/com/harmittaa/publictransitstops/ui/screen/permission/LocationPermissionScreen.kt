@@ -47,7 +47,7 @@ fun LocationPermissionScreen(
 
     val context = LocalContext.current
 
-    var columnHeightPx by remember {
+    var contentHeightPx by remember {
         mutableFloatStateOf(0f)
     }
 
@@ -61,12 +61,11 @@ fun LocationPermissionScreen(
                     .9F to MaterialTheme.colorScheme.background,
                     startY = 1f,
                     // makes sure content does not overlap with background
-                    endY = columnHeightPx * 0.8f
+                    endY = contentHeightPx * 0.8f
                 )
             )
             .onGloballyPositioned { coordinates ->
-                columnHeightPx = coordinates.size.height.toFloat()
-                println("Setting height to $columnHeightPx")
+                contentHeightPx = coordinates.size.height.toFloat()
             }
 
     ) {
