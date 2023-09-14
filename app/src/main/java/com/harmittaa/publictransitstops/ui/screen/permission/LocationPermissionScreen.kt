@@ -6,6 +6,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +15,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,49 +47,64 @@ fun LocationPermissionScreen(
 
     val context = LocalContext.current
 
+    var columnHeightPx by remember {
+        mutableFloatStateOf(0f)
+    }
+
     NearestStopsBackground()
-    Column(
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Box(
         modifier = Modifier
-            .fillMaxSize()
             .background(
                 Brush.verticalGradient(
                     0F to Color.Transparent,
                     .5F to MaterialTheme.colorScheme.background,
                     .9F to MaterialTheme.colorScheme.background,
                     startY = 1f,
-                    endY = 1000f
+                    // makes sure that the gradient goes over the background
+                    // and the content of the screen does not overlap
+                    endY = columnHeightPx * 0.8f
                 )
             )
-            .padding(horizontal = 12.dp, vertical = 16.dp)
+            .onGloballyPositioned { coordinates ->
+                columnHeightPx = coordinates.size.height.toFloat()
+                println("Setting height to $columnHeightPx")
+            }
+
     ) {
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxHeight(0.7f)
+                .fillMaxSize()
+                .padding(horizontal = 12.dp, vertical = 16.dp)
         ) {
-            Text(
-                text = "To use this application, you will need to provide your location.",
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
-            )
-
-            Button(
-                onClick = {
-                    when (PackageManager.PERMISSION_GRANTED) {
-                        context.checkIfAppHasLocationPermission() ->
-                            println("App has been granted permissions")
-
-                        else -> launcher.launch(ACCESS_FINE_LOCATION)
-                    }
-                }
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxHeight(0.7f)
             ) {
                 Text(
-                    text = "Allow location permission",
-                    style = MaterialTheme.typography.bodyMedium
+                    text = "To use this application, you will need to provide your location.",
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
                 )
+
+                Button(
+                    onClick = {
+                        when (PackageManager.PERMISSION_GRANTED) {
+                            context.checkIfAppHasLocationPermission() ->
+                                println("App has been granted permissions")
+
+                            else -> launcher.launch(ACCESS_FINE_LOCATION)
+                        }
+                    }
+                ) {
+                    Text(
+                        text = "Allow location permission",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
