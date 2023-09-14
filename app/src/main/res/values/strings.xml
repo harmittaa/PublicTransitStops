@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PublicTransitStops</string>
+    <string name="landing_title_provide_location">To use this application, you will need to provide your location.</string>
+    <string name="landing_allow_permission_button_label">Allow location permission</string>
+    <string name="error_view_generic_error_title">There has been an error with the following component:</string>
+    <string name="loading_view_loading_hold_on">Loading data… please hold on</string>
+    <string name="nearest_stops_title_closest_stops">Here are the closest %1$s stops based on your location</string>
 </resources>

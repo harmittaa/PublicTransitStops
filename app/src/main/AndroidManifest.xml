@@ -22,7 +22,6 @@
         <activity
             android:name=".application.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.PublicTransitStops">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
